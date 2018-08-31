@@ -4,11 +4,13 @@ source("../connector/postgre_connector.R")
 library(ggplot2)
 library(dplyr)
 
-merge.csv = function(mypath){
+merge.csv = function(mypath, uniq=FALSE){
   filenames=list.files(path=mypath, full.names=TRUE)
   datalist = lapply(filenames, read.csv, stringsAsFactors = FALSE)
   datalist = do.call("rbind", datalist)  
-  datalist<-unique(datalist)
+  if(uniq==TRUE){
+    datalist<-unique(datalist)
+  }
   #datalist[datalist== ""] <- NA
   datalist
 }
